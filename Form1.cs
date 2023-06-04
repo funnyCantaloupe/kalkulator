@@ -133,19 +133,50 @@ namespace kalkulator
         {
             string expression = textBox1.Text;
 
-            DataTable dt = new DataTable();
-            var v = dt.Compute(expression, "");
+            
+            expression = expression.Replace("×", "*");
+            expression = expression.Replace("÷", "/");
 
-            double result;
-            if (double.TryParse(v.ToString(), out result))
+            
+            expression = expression.Replace("sin", "Math.Sin");
+            expression = expression.Replace("cos", "Math.Cos");
+            expression = expression.Replace("tan", "Math.Tan");
+
+            
+            expression = expression.Replace("rad", "");
+            expression = expression.Replace("deg", "* (Math.PI / 180)");
+
+            
+            expression = expression.Replace("e", Math.E.ToString());
+
+            
+            expression = expression.Replace("π", Math.PI.ToString());
+
+
+            try
             {
-                textBox1.Text = result.ToString();
-                ans = result;
+                double result = EvaluateExpression(expression);
+                if (!double.IsNaN(result))
+                {
+                    textBox1.Text = result.ToString();
+                    ans = result;
+
+                    UpdateHistory(result.ToString());
+                }
+                else
+                {
+                    MessageBox.Show("Niepoprawne wyrażenie.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Niepoprawne wyrażenie.");
+                MessageBox.Show("Wystąpił błąd: " + ex.Message);
             }
+        }
+
+        private double EvaluateExpression(string expression)
+        {
+            return Convert.ToDouble(new DataTable().Compute(expression, ""));
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
@@ -219,5 +250,12 @@ namespace kalkulator
                 visible = true;
             }
         }
+
+        private void UpdateHistory(string result)
+        {
+            ListViewItem item = new ListViewItem(result);
+            listView1.Items.Add(item);
+        }
+
     }
 }

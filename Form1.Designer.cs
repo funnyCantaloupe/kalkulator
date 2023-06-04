@@ -229,7 +229,6 @@ namespace kalkulator
             this.button18.TabIndex = 17;
             this.button18.Text = "7";
             this.button18.UseVisualStyleBackColor = true;
-            
             // 
             // button19
             // 
@@ -328,7 +327,6 @@ namespace kalkulator
             this.button29.Size = new System.Drawing.Size(94, 29);
             this.button29.TabIndex = 28;
             this.button29.Text = "=";
-            
             // 
             // listView1
             // 
@@ -347,7 +345,6 @@ namespace kalkulator
             this.button30.TabIndex = 31;
             this.button30.Text = "AC";
             this.button30.UseVisualStyleBackColor = true;
-           
             // 
             // button31
             // 
@@ -393,7 +390,7 @@ namespace kalkulator
             this.button35.TabIndex = 36;
             this.button35.Text = "PROSTY/NAUKOWY";
             this.button35.UseVisualStyleBackColor = true;
-            
+            this.button35.Click += new System.EventHandler(this.button35_Click);
             // 
             // textBox1
             // 
